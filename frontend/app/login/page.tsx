@@ -1,16 +1,15 @@
 'use client';
-
 import { useState } from 'react';
 import LoginForm from '@/components/LoginForm';
 
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleSubmit = (data: { name: string; id: string }) => {
     async function login() {
-      console.log('Submitting login data:', data);
       try {
-        const response = await fetch('/api/login', {
+        const response = await fetch('/api/auth/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -20,13 +19,18 @@ export default function Login() {
         if (response.ok) {
           const data = await response.json();
           console.log('Login successful:', data);
+          localStorage.setItem('token', data.token);
+          setSuccessMessage(data.message);
+          setErrorMessage(null);
         } else {
           console.log('Login failed:', response.statusText);
-          setErrorMessage(response.statusText);
+          setErrorMessage(`Login failed: ${response.statusText}`);
+          setSuccessMessage(null);
         }
       } catch (error) {
         console.log('Error during login:', error);
         setErrorMessage('An error occurred during login. Please try again.');
+        setSuccessMessage(null);
       }
     }
 
@@ -42,7 +46,13 @@ export default function Login() {
             Please enter your credentials to login.
           </h1>
         </div>
-        <LoginForm onSubmit={handleSubmit} />
+        <div>
+          <LoginForm onSubmit={handleSubmit} />
+          <p
+            className={`mt-4 ${errorMessage ? 'text-red-500' : 'text-green-500'}`}>
+            {errorMessage || successMessage}
+          </p>
+        </div>
       </main>
     </div>
   );

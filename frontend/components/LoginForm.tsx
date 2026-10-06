@@ -1,52 +1,43 @@
 'use client';
 
 type LoginFormProps = {
-  onSubmit: (data: { name: string; id: string }) => void;
+  onSubmit: (credentials: { name: string; id: string }) => void | Promise<void>;
 };
 
 export default function LoginForm({ onSubmit }: LoginFormProps) {
-  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    onSubmit({
-      name: formData.get('name') as string,
-      id: formData.get('id') as string,
+    await onSubmit({
+      name: String(formData.get('name') ?? ''),
+      id: String(formData.get('id') ?? ''),
     });
   };
 
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-      <div className="flex flex-col gap-2">
-        <label
-          htmlFor="name"
-          className="text-sm font-medium text-gray-700 dark:text-gray-300">
-          Name
-        </label>
+      <label className="flex flex-col gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+        Name
         <input
-          type="text"
-          id="name"
           name="name"
+          autoComplete="name"
           required
-          className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:border-gray-600 dark:text-gray-300"
+          className="rounded-md border border-gray-300 px-4 py-2 dark:border-gray-600 dark:bg-black"
         />
-      </div>
-      <div className="flex flex-col gap-2">
-        <label
-          htmlFor="id"
-          className="text-sm font-medium text-gray-700 dark:text-gray-300">
-          ID
-        </label>
+      </label>
+      <label className="flex flex-col gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+        Id
         <input
           type="text"
-          id="id"
           name="id"
+          autoComplete="off"
           required
-          className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:border-gray-600 dark:text-gray-300"
+          className="rounded-md border border-gray-300 px-4 py-2 dark:border-gray-600 dark:bg-black"
         />
-      </div>
+      </label>
       <button
         type="submit"
-        className="px-4 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        className="rounded-md bg-blue-500 px-4 py-2 font-medium text-white hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-60">
         Login
       </button>
     </form>

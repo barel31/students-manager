@@ -1,8 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import authRouter from './routes/auth.ts';
 
-// Routes
-// import { index } from './routes/index';
+const PORT = 3001;
 
 // Create Express server
 export const app = express();
@@ -16,21 +16,14 @@ app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 
 // Express configuration
-app.set('port', process.env.PORT || 3001);
+app.set('port', PORT);
 
-app.use('/api/status', function (req, res, next) {
+app.use('/api/status', function (req, res) {
   res.json({ status: 'OK' });
 });
 
-app.post('/api/login', function (req, res, next) {
-  const { name, id } = req.body;
-    if (name && id) {
-        res.json({ message: 'Login successful' });
-    } else {
-        res.status(400).json({ message: 'Missing name or id' });
-    }
-});
+app.use('/api/auth', authRouter);
 
-app.listen(app.get('port'), () => {
-  console.log(`Server is running on port ${app.get('port')}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

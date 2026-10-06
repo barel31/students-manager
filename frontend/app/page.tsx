@@ -1,12 +1,25 @@
 'use client';
 
 export default function Home() {
-  function checkServerStatus() {
+  const checkServerStatus = () => {
     fetch('/api/status')
       .then(response => response.json())
       .then(data => console.log('Server status:', data))
       .catch(error => console.error('Error checking server status:', error));
-  }
+  };
+
+  const verifyToken = () => {
+    fetch('/api/auth/verify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token: localStorage.getItem('token') }),
+    })
+      .then(response => response.json())
+      .then(data => console.log('Token verification:', data))
+      .catch(error => console.error('Error verifying token:', error));
+  };
 
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
@@ -31,6 +44,11 @@ export default function Home() {
             onClick={checkServerStatus}
             className="px-4 py-2 bg-green-500 text-white font-medium rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500">
             SERVER STATUS
+          </button>
+          <button
+            onClick={verifyToken}
+            className="px-4 py-2 bg-purple-500 text-white font-medium rounded-md hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500">
+            VERIFY TOKEN
           </button>
         </div>
       </main>
