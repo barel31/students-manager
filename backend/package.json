@@ -1,0 +1,13 @@
+{
+  "name": "students-manager-backend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch app.ts",
+    "start": "node app.ts"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.6",
+    "express": "^5.2.1"
+  }
+}
