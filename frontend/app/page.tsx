@@ -1,5 +1,6 @@
-"use client";
-import { checkServerStatus, verifyToken } from '@/helpers/auth';
+'use client';
+
+import { verifyToken } from '@/helpers/auth';
 import Link from 'next/link';
 
 export default function Home() {
@@ -23,11 +24,6 @@ export default function Home() {
             className="px-4 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
             LOGIN
           </Link>
-          <button
-            onClick={checkServerStatus}
-            className="px-4 py-2 bg-green-500 text-white font-medium rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500">
-            SERVER STATUS
-          </button>
           <button
             onClick={verifyToken}
             className="px-4 py-2 bg-purple-500 text-white font-medium rounded-md hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500">

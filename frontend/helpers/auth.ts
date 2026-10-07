@@ -1,21 +1,21 @@
-export const checkServerStatus = () => {
-  fetch('/api/status')
-    .then(response => response.json())
-    .then(data => console.log('Server status:', data))
-    .catch(error => console.error('Error checking server status:', error));
-};
+export const verifyToken = async () => {
+  try {
+    const response = await fetch('/api/auth/verify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token: localStorage.getItem('token') }),
+    });
 
-export const verifyToken = () => {
-  fetch('/api/auth/verify', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ token: localStorage.getItem('token') }),
-  })
-    .then(response => response.json())
-    .then(data => console.log('Token verification:', data))
-    .catch(error => console.error('Error verifying token:', error));
+    const data = await response.json();
+    if (data) {
+      console.log('Token verification:', data);
+      return data;
+    }
+  } catch (error) {
+    console.error('Error verifying token:', error);
+  }
 };
 
 export const getUser = async () => {

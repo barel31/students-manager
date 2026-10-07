@@ -1,9 +1,12 @@
 'use client';
+
 import { useState } from 'react';
 import LoginForm from '@/components/LoginForm';
 import { setTokenInLocalStorage } from '@/helpers/auth';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
+  const router = useRouter();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
@@ -23,6 +26,7 @@ export default function Login() {
           setTokenInLocalStorage(data.token);
           setSuccessMessage(data.message);
           setErrorMessage(null);
+          router.push('/manager');
         } else {
           console.log('Login failed:', response.statusText);
           setErrorMessage(`Login failed: ${response.statusText}`);

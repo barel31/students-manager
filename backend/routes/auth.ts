@@ -12,7 +12,7 @@ router.post('/login', function (req, res) {
   const user = users.find(user => user.name === name && user.id === id);
   if (user) {
     const token = jwt.sign({ name }, jwtSecret, { expiresIn: '1m' });
-    res.json({ token });
+    res.json({ token, user });
   } else {
     res.status(400).json({ message: 'Invalid name or id' });
   }
