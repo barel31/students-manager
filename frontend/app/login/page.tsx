@@ -7,7 +7,7 @@ export default function Login() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleSubmit = (data: { name: string; id: string }) => {
-    async function login() {
+    const login = async () => {
       try {
         const response = await fetch('/api/auth/login', {
           method: 'POST',
@@ -32,7 +32,7 @@ export default function Login() {
         setErrorMessage('An error occurred during login. Please try again.');
         setSuccessMessage(null);
       }
-    }
+    };
 
     login();
   };

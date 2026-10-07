@@ -11,21 +11,25 @@ router.post('/login', function (req, res) {
   const { name, id } = req.body;
   const isValid = users.some(user => user.name === name && user.id === id);
   if (isValid) {
-    const token = jwt.sign({ name }, jwtSecret, { expiresIn: '1h' });
+    const token = jwt.sign({ name }, jwtSecret, { expiresIn: '1m' });
     res.json({ token });
   } else {
     res.status(400).json({ message: 'Invalid name or id' });
   }
 });
 
+router.post('/logout', function (req, res) {
+  res.json({ message: 'Logged out successfully' });
+});
+
 router.post('/verify', function (req, res) {
-    const { token } = req.body;
-    try {
-        const decoded = jwt.verify(token, jwtSecret);
-        res.json({ valid: true, decoded });
-    } catch (error) {
-        res.status(400).json({ valid: false });
-    }
+  const { token } = req.body;
+  try {
+    const decoded = jwt.verify(token, jwtSecret);
+    res.json({ valid: true, decoded });
+  } catch (error) {
+    res.status(200).json({ valid: false });
+  }
 });
 
 export default router;
