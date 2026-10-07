@@ -1,28 +1,8 @@
-'use client';
-
+"use client";
+import { checkServerStatus, verifyToken } from '@/helpers/auth';
 import Link from 'next/link';
 
 export default function Home() {
-  const checkServerStatus = () => {
-    fetch('/api/status')
-      .then(response => response.json())
-      .then(data => console.log('Server status:', data))
-      .catch(error => console.error('Error checking server status:', error));
-  };
-
-  const verifyToken = () => {
-    fetch('/api/auth/verify', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ token: localStorage.getItem('token') }),
-    })
-      .then(response => response.json())
-      .then(data => console.log('Token verification:', data))
-      .catch(error => console.error('Error verifying token:', error));
-  };
-
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">

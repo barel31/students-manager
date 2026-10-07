@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import authRouter from './routes/auth.ts';
+import jwt from 'jsonwebtoken';
 
 const PORT = 3001;
 

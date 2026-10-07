@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import LoginForm from '@/components/LoginForm';
+import { setTokenInLocalStorage } from '@/helpers/auth';
 
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -19,7 +20,7 @@ export default function Login() {
         if (response.ok) {
           const data = await response.json();
           console.log('Login successful:', data);
-          localStorage.setItem('token', data.token);
+          setTokenInLocalStorage(data.token);
           setSuccessMessage(data.message);
           setErrorMessage(null);
         } else {
