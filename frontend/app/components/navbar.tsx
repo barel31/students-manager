@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { getUser } from '@/helpers/auth';
+import { getTeacher } from '../helpers/auth';
 import { useEffect, useState } from 'react';
 
 export default function Navbar() {
@@ -9,22 +9,20 @@ export default function Navbar() {
 
   useEffect(() => {
     (async () => {
-      const newUser = await getUser();
+      const newUser = await getTeacher();
       if (!newUser) return null;
       setUserName(newUser.name || 'No Name');
     })();
   }, []);
 
   return (
-    <nav className="bg-white text-white p-4 w-full h-full flex flex-col items-center justify-center dark:bg-black ">
+    <nav className="p-4 w-full h-full flex flex-col items-center justify-center">
       <div className="container mx-full flex items-center justify-between">
         <Link href="/" className="text-4xl font-bold">
           Students Manager
         </Link>
-        <div>
-          <p>Welcome, {userName}</p>
-        </div>
-        <div>
+        <div className="flex justify-around w-1/5 align-middle">
+          <p className="m-auto">Welcome, {userName}</p>
           {userName !== 'Guest' ? (
             <button
               onClick={() => {

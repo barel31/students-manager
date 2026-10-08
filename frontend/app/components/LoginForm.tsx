@@ -1,21 +1,10 @@
 'use client';
 
-type LoginFormProps = {
-  onSubmit: (credentials: { name: string; id: string }) => void | Promise<void>;
-};
+import { loginTeacher } from '@/app/actions/teacher';
 
-export default function LoginForm({ onSubmit }: LoginFormProps) {
-  const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    await onSubmit({
-      name: String(formData.get('name') ?? ''),
-      id: String(formData.get('id') ?? ''),
-    });
-  };
-
+export default function LoginForm() {
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+    <form className="flex flex-col gap-4" action={loginTeacher}>
       <label className="flex flex-col gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
         Name
         <input
