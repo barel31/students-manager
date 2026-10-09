@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import authRouter from './routes/auth.route.ts';
 import teacherRouter from './routes/teacher.route.ts';
+import studentRouter from './routes/student.route.ts';
 import { connectDB } from './config/db.ts';
 import { loadEnvFile } from 'node:process';
 import cors from 'cors';
@@ -30,6 +31,7 @@ app.set('port', PORT);
 // Routes
 app.use('/api/auth', authRouter);
 app.use('/api/teacher', teacherRouter);
+app.use('/api/student', studentRouter);
 
 app.listen(PORT, async () => {
   await connectDB();

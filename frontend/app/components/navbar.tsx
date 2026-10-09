@@ -1,6 +1,8 @@
 'use client';
 
 import Link from 'next/link';
+import Button from '@/app/ui/Button';
+import LinkButton from '@/app/ui/LinkButton';
 import { getTeacher } from '../helpers/auth';
 import { useEffect, useState } from 'react';
 
@@ -24,21 +26,21 @@ export default function Navbar() {
         <div className="flex justify-around w-1/5 align-middle">
           <p className="m-auto">Welcome, {userName}</p>
           {userName !== 'Guest' ? (
-            <button
+            <Button
+              variant="danger"
+              type="button"
               onClick={() => {
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
                 window.location.reload();
               }}
-              className="cursor-pointer px-4 py-2 bg-red-500 text-white font-medium rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500">
+            >
               LOGOUT
-            </button>
+            </Button>
           ) : (
-            <Link
-              href="/login"
-              className="cursor-pointer px-4 py-2 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <LinkButton href="/login" variant="primary">
               LOGIN
-            </Link>
+            </LinkButton>
           )}
         </div>
       </div>

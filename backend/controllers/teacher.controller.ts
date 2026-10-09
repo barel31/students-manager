@@ -2,27 +2,29 @@ import type { Request, Response } from 'express';
 import { Teacher } from '../models/teacher.model.ts';
 
 export async function getTeacherStudents(req: Request, res: Response) {
+  const teacherId = req.teacherId;
   try {
-    // const students = await Teacher.find('')
-    // res.status(201).json(student);
+    const teacher: Teacher = await Teacher.findById(teacherId).exec();
+
+    res.json({ students: teacher.students });
   } catch (error) {
     res.status(400).json({ message: 'Error creating student', error });
   }
 }
 
-export async function seedTeacher() {
-  await Teacher.updateOne(
-    { id: '123456789' },
-    {
-      $setOnInsert: {
-        name: 'admin',
-        id: '123456789',
-        students: [],
-      },
-    },
-    { upsert: true },
-  );
-}
+// export async function seedTeacher() {
+//   await Teacher.updateOne(
+//     { id: '123456789' },
+//     {
+//       $setOnInsert: {
+//         name: 'admin',
+//         id: '123456789',
+//         students: [],
+//       },
+//     },
+//     { upsert: true },
+//   );
+// }
 
 export async function getTeacher(req: Request, res: Response) {
   const teacherId = req?.teacherId;

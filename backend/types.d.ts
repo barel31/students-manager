@@ -15,8 +15,8 @@ interface Student {
 
 interface Assignment {
   _id?: Types.ObjectId;
-  name: String;
-  dueDay: Date;
-  status: Boolean;
-  score: Number;
+  name: string;
+  dueDay: date;
+  status: boolean;
+  score: number;
 }

@@ -1,34 +1,10 @@
-'use client';
-
+import { deleteStudent, fetchTeacherStudents } from '../actions/student';
 import CreateStudent from '../components/CreateStudentForm';
-import { getTeacher } from '../helpers/auth';
-import { fetchTeacherStudents } from '../helpers/students';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import Button from '../ui/Button';
+import LinkButton from '../ui/LinkButton';
 
-const studentsPlaceholder = [
-  { name: 'yossi', grade: '2', phone: '0501234567' },
-  { name: 'menash', grade: '3', phone: '1232154124' },
-];
-
-export default function Manager() {
-  const [students, setStudents] = useState<Student[]>(studentsPlaceholder);
-  const router = useRouter();
-
-  useEffect(() => {
-    (async () => {
-      const fetched = await fetchTeacherStudents();
-      if (!fetched) return;
-      setStudents(fetched);
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      const user = await getTeacher();
-      if (!user) router.push('/login');
-    })();
-  }, [router]);
+export default async function Manager() {
+  const students = await fetchTeacherStudents();
 
   return (
     <main className="flex-1 text-slate-50 px-4 py-10 sm:px-6">
@@ -49,14 +25,31 @@ export default function Manager() {
                 <th scope="col" className="px-5 py-3 font-medium">
                   Phone
                 </th>
+                <th scope="col" className="px-5 py-3 font-medium">
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-700 text-slate-50">
-              {students.map((student, index) => (
-                <tr key={index} className="hover:bg-slate-900">
-                  <td className="px-5 py-4 capitalize">{student.name}</td>
+              {students?.map((student, index) => (
+                <tr key={index} className="hover:bg-slate-900 cursor-pointer">
+                  <td className="px-5 py-4">{student.name}</td>
                   <td className="px-5 py-4">{student.grade}</td>
                   <td className="px-5 py-4">{student.phone}</td>
+                  <td className="px-5 py-4">
+                    <LinkButton href={`/manager/${student._id}`}>
+                      View
+                    </LinkButton>
+                    <form
+                      action={deleteStudent.bind(
+                        null,
+                        student._id?.toString() ?? '',
+                      )}>
+                      <Button type="submit" variant="danger">
+                        Delete
+                      </Button>
+                    </form>
+                  </td>
                 </tr>
               ))}
             </tbody>

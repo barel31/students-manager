@@ -14,10 +14,11 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
 
   try {
     const payload = jwt.verify(token, getJwtSecret());
-    console.log({ payload });
+
     if (typeof payload === 'string' || typeof payload?.teacherId !== 'string') {
       return res.status(401).json('Invalid token payload');
     }
+
     req.teacherId = payload.teacherId;
     return next();
   } catch {

@@ -33,5 +33,5 @@ export const loginTeacher = async (formData: FormData) => {
     path: '/',
   });
 
-  redirect('/manager');
+  redirect('/manager', 'push');
 };
