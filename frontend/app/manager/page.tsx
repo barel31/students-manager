@@ -13,6 +13,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import DeleteStudentForm from '../../components/DeleteStudentForm';
+import { Input } from '@/components/ui/input';
 
 export default async function Manager() {
   const token = await getToken();
@@ -24,7 +25,7 @@ export default async function Manager() {
     <main className="flex-1 px-4 py-6 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl space-y-6">
         <div className="overflow-hidden rounded-xl border bg-white shadow-sm">
-          <Table className="min-w-[560px] text-sm sm:min-w-0">
+          <Table className="min-w-140 text-sm sm:min-w-0">
             <TableHeader>
               <TableRow>
                 <TableHead className="px-2 py-2">Name</TableHead>
@@ -37,13 +38,15 @@ export default async function Manager() {
             <TableBody>
               {students?.map(student => (
                 <TableRow key={student._id.toString()}>
-                  <TableCell className="px-2 py-2">{student.name}</TableCell>
+                  <TableCell className="px-2 py-2">
+                    <Input placeholder={student.name} />
+                  </TableCell>
                   <TableCell className="px-2 py-2">{student.grade}</TableCell>
                   <TableCell className="px-2 py-2">{student.phone}</TableCell>
                   <TableCell className="px-2 py-2">
                     <div className="flex flex-wrap items-center gap-2">
                       <Link href={`/manager/${student._id}`}>
-                        <Button className="h-8 px-2.5 text-xs">View</Button>
+                        <Button className="h-8 px-2.5">View</Button>
                       </Link>
 
                       <DeleteStudentForm student={student} />

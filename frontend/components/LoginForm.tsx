@@ -3,6 +3,8 @@
 import { useActionState } from 'react';
 import { loginTeacher } from '@/actions/teacher';
 import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { Label } from './ui/label';
 
 export default function LoginForm() {
   const [state, formAction, pending] = useActionState(loginTeacher, {
@@ -11,25 +13,23 @@ export default function LoginForm() {
 
   return (
     <form className="flex flex-col gap-4" action={formAction}>
-      <label className="grid gap-2 text-sm font-medium text-slate-700">
-        Name
-        <input
-          name="name"
-          autoComplete="name"
-          required
-          className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-slate-500"
-        />
-      </label>
+      <Label htmlFor="teacher-name">Name</Label>
+      <Input
+        id="teacher-name"
+        name="name"
+        placeholder="Enter your name"
+        autoComplete="name"
+        required
+      />
 
-      <label className="grid gap-2 text-sm font-medium text-slate-700">
-        Id
-        <input
+        <Label htmlFor="teacher-id">Id</Label>
+        <Input
+          id="teacher-id"
           name="id"
+          placeholder="Enter your ID"
           autoComplete="off"
           required
-          className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-slate-500"
         />
-      </label>
 
       {state.message && <p className="text-sm text-red-500">{state.message}</p>}
 
