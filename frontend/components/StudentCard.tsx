@@ -16,6 +16,7 @@ import { Checkbox } from './ui/checkbox';
 import { Field, FieldGroup, FieldLabel } from './ui/field';
 import { addAssignment } from '@/actions/assignment';
 import Assignments from './Assignments';
+import EmptyAssignments from './EmptyAssignments';
 
 export default function StudentCard(props: { student: Student }) {
   const [state, formAction, pending] = useActionState(addAssignment, {
@@ -109,7 +110,11 @@ export default function StudentCard(props: { student: Student }) {
           )}
         </div>
 
-        <Assignments assignments={student?.assignments} />
+        {student.assignments?.length ? (
+          <Assignments assignments={student.assignments} />
+        ) : (
+          <EmptyAssignments />
+        )}
       </CardContent>
     </Card>
   );

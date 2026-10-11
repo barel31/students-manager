@@ -1,14 +1,6 @@
 import { useActionState } from 'react';
 import { deleteAssignment, updateAssignment } from '@/actions/assignment';
 import { useParams } from 'next/navigation';
-
-import {
-  Empty,
-  EmptyDescription,
-  EmptyHeader,
-  EmptyMedia,
-  EmptyTitle,
-} from '@/components/ui/empty';
 import {
   Table,
   TableBody,
@@ -20,7 +12,7 @@ import {
 import { Button } from './ui/button';
 import EditableCell from './EditableCell';
 
-export default function Assignments(props: { assignments?: Assignment[] }) {
+export default function Assignments(props: { assignments: Assignment[] }) {
   const { assignments } = props;
   const [state, formAction, pending] = useActionState(deleteAssignment, {
     message: '',
@@ -29,21 +21,6 @@ export default function Assignments(props: { assignments?: Assignment[] }) {
   const params = useParams();
 
   const studentId = params.id as string;
-
-  if (!assignments?.length) {
-    return (
-      <Empty>
-        <EmptyHeader>
-          <EmptyMedia variant="icon"></EmptyMedia>
-          <EmptyTitle>No Assignments Yet</EmptyTitle>
-          <EmptyDescription>
-            You haven&apos;t created any assignments yet. Get started by
-            creating first assignment.
-          </EmptyDescription>
-        </EmptyHeader>
-      </Empty>
-    );
-  }
 
   return (
     <div className="overflow-hidden rounded-lg border">
@@ -83,7 +60,9 @@ export default function Assignments(props: { assignments?: Assignment[] }) {
                     'dueDay',
                   )}
                   field="dueDay"
-                  value={new Date(assignment.dueDay).toISOString().slice(0, 10)}
+                  value={new Intl.DateTimeFormat('en-GB').format(
+                    new Date(assignment.dueDay),
+                  )}
                   type="date"
                 />
               </TableCell>
