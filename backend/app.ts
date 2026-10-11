@@ -12,10 +12,7 @@ if (existsSync('.env')) {
   loadEnvFile();
 }
 
-const PORT = 3001;
-
-// Create Express server
-export const app = express();
+const app = express();
 
 app.use(cors());
 
@@ -27,24 +24,17 @@ app.use(bodyParser.urlencoded());
 // parse application/json
 app.use(bodyParser.json());
 
-// Express configuration
-app.set('port', PORT);
+app.use(async (_req, _res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
-// Routes
 app.use('/api/auth', authRouter);
 app.use('/api/teacher', teacherRouter);
 app.use('/api/student', studentRouter);
 
-async function startServer() {
-  try {
-    await connectDB();
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
-  } catch (error) {
-    console.error('Server startup failed:', error);
-    process.exitCode = 1;
-  }
-}
-
-startServer();
+export default app;
