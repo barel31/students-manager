@@ -11,10 +11,12 @@ export const addAssignment = async (
   const token = await getToken();
   if (!token) redirect('/login', 'push');
 
+  const score = Number(formData.get('score'));
+
   const assignment: Assignment = {
     name: formData.get('name') as string,
     dueDay: new Date(formData.get('dueDay') as string),
-    score: Number(formData.get('score')),
+    ...(score !== undefined ? { score } : {}),
     status: Boolean(formData.get('status')),
   };
 

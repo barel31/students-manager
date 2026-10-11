@@ -79,6 +79,10 @@ export async function updateAssignment(req: Request, res: Response) {
         break;
       }
       case 'score':
+        if (typeof value === 'string' && !value.trim()) {
+          assignment.score = undefined;
+          break;
+        }
         if (
           (typeof value !== 'number' && typeof value !== 'string') ||
           !String(value).trim() ||

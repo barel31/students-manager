@@ -83,7 +83,6 @@ export default function StudentCard(props: { student: Student }) {
                     id="score"
                     type="number"
                     placeholder="Assignment score"
-                    required
                   />
                 </div>
 

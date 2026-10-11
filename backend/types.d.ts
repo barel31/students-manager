@@ -18,5 +18,5 @@ interface Assignment {
   name: string;
   dueDay: Date;
   status: boolean;
-  score: number;
+  score?: number;
 }

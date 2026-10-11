@@ -75,8 +75,9 @@ export default function Assignments(props: { assignments: Assignment[] }) {
                     'score',
                   )}
                   field="score"
-                  value={String(assignment.score)}
+                  value={`${assignment.score || 'Not set'}`}
                   type="number"
+                  required={false}
                 />
               </TableCell>
               <TableCell className="px-2 py-2">

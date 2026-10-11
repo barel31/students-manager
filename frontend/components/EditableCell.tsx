@@ -15,12 +15,14 @@ export default function EditableCell({
   value,
   type,
   displayValue = value,
+  required = true,
 }: {
   action: EditableAction;
   field: string;
   value: string;
   type?: 'text' | 'date' | 'number' | 'checkbox';
   displayValue?: string;
+  required?: boolean;
 }) {
   const [editing, setEditing] = useState(false);
   const [state, formAction, pending] = useActionState(
@@ -73,7 +75,7 @@ export default function EditableCell({
           type={type}
           name="value"
           defaultValue={value}
-          required
+          required={required}
           disabled={pending}
         />
       )}
