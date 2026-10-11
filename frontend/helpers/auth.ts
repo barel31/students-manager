@@ -1,4 +1,5 @@
 import { getToken } from './auth-sever';
+import { getBackendUrl } from '../lib/backend-url';
 
 export async function verifyToken() {
   const token = await getToken();
@@ -7,7 +8,7 @@ export async function verifyToken() {
   }
 
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/auth/verify`, {
+    const response = await fetch(getBackendUrl('/api/auth/verify'), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -38,7 +39,7 @@ export async function getTeacher() {
 
   try {
     const response = await fetch(
-      `${process.env.BACKEND_URL}/api/auth/getTeacher`,
+      getBackendUrl('/api/auth/getTeacher'),
       {
         method: 'GET',
         headers: {

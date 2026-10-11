@@ -2,6 +2,7 @@
 import { notFound, redirect } from 'next/navigation';
 import { getToken } from '../helpers/auth-sever';
 import { refresh } from 'next/cache';
+import { getBackendUrl } from '../lib/backend-url';
 
 export const deleteStudent = async (
   _previousState: { message: string },
@@ -17,7 +18,7 @@ export const deleteStudent = async (
 
   try {
     const response = await fetch(
-      `${process.env.BACKEND_URL}/api/student/${studentId}`,
+      getBackendUrl(`/api/student/${studentId}`),
       {
         method: 'DELETE',
         headers: {
@@ -56,7 +57,7 @@ export const updateStudent = async (
 
   try {
     const response = await fetch(
-      `${process.env.BACKEND_URL}/api/student/${studentId}`,
+      getBackendUrl(`/api/student/${studentId}`),
       {
         method: 'PATCH',
         headers: {
@@ -98,7 +99,7 @@ export const createStudent = async (formData: FormData) => {
 
   try {
     const response = await fetch(
-      `${process.env.BACKEND_URL}/api/student/student`,
+      getBackendUrl('/api/student/student'),
       {
         method: 'POST',
         headers: {
@@ -123,7 +124,7 @@ export const fetchTeacherStudents = async () => {
 
   try {
     const response = await fetch(
-      `${process.env.BACKEND_URL}/api/teacher/students`,
+      getBackendUrl('/api/teacher/students'),
       {
         method: 'GET',
         headers: {
@@ -147,7 +148,7 @@ export const fetchTeacherStudents = async () => {
 
 export const fetchStudent = async (teacherToken: string, studentId: string) => {
   const response = await fetch(
-    `${process.env.BACKEND_URL}/api/student/${studentId}`,
+    getBackendUrl(`/api/student/${studentId}`),
     {
       headers: { Authorization: `Bearer ${teacherToken}` },
     },

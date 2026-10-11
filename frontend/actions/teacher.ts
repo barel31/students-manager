@@ -2,6 +2,7 @@
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { getToken } from '../helpers/auth-sever';
+import { getBackendUrl } from '../lib/backend-url';
 
 export const getTeacher = async () => {
   const token = await getToken();
@@ -9,7 +10,7 @@ export const getTeacher = async () => {
 
   try {
     const response = await fetch(
-      `${process.env.BACKEND_URL}/api/auth/getTeacher`,
+      getBackendUrl('/api/auth/getTeacher'),
       {
         method: 'GET',
         headers: {
@@ -38,7 +39,7 @@ export const loginTeacher = async (
 ) => {
   let token: string;
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/auth/login`, {
+    const response = await fetch(getBackendUrl('/api/auth/login'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

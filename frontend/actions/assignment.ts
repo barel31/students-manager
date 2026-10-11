@@ -2,6 +2,7 @@
 import { redirect } from 'next/navigation';
 import { getToken } from '../helpers/auth-sever';
 import { refresh } from 'next/cache';
+import { getBackendUrl } from '../lib/backend-url';
 
 export const addAssignment = async (
   _previousState: { message: string | null },
@@ -21,7 +22,7 @@ export const addAssignment = async (
   let response: Response;
   try {
     response = await fetch(
-      `${process.env.BACKEND_URL}/api/student/${studentId}/assignment`,
+      getBackendUrl(`/api/student/${studentId}/assignment`),
       {
         method: 'POST',
         headers: {
@@ -65,7 +66,7 @@ export const deleteAssignment = async (
 
   try {
     const response = await fetch(
-      `${process.env.BACKEND_URL}/api/student/${studentId}/assignment`,
+      getBackendUrl(`/api/student/${studentId}/assignment`),
       {
         method: 'DELETE',
         headers: {
@@ -112,7 +113,7 @@ export const updateAssignment = async (
 
   try {
     const response = await fetch(
-      `${process.env.BACKEND_URL}/api/student/${studentId}/assignment/${assignmentId}`,
+      getBackendUrl(`/api/student/${studentId}/assignment/${assignmentId}`),
       {
         method: 'PATCH',
         headers: {
