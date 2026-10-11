@@ -21,17 +21,14 @@ export const addAssignment = async (
   const studentId = formData.get('studentId') as string;
   let response: Response;
   try {
-    response = await fetch(
-      getBackendUrl(`/api/student/${studentId}/assignment`),
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ assignment }),
+    response = await fetch(getBackendUrl(`/api/assignment/${studentId}/`), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
-    );
+      body: JSON.stringify({ assignment }),
+    });
   } catch (error) {
     console.error('Unable to connect while adding assignment:', error);
     return { message: 'Unable to connect. Please try again.' };
@@ -66,7 +63,7 @@ export const deleteAssignment = async (
 
   try {
     const response = await fetch(
-      getBackendUrl(`/api/student/${studentId}/assignment`),
+      getBackendUrl(`/api/assignment/${studentId}/`),
       {
         method: 'DELETE',
         headers: {
@@ -113,7 +110,7 @@ export const updateAssignment = async (
 
   try {
     const response = await fetch(
-      getBackendUrl(`/api/student/${studentId}/assignment/${assignmentId}`),
+      getBackendUrl(`/api/assignment/${studentId}/${assignmentId}`),
       {
         method: 'PATCH',
         headers: {

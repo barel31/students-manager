@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import authRouter from './routes/auth.route.ts';
 import teacherRouter from './routes/teacher.route.ts';
 import studentRouter from './routes/student.route.ts';
+import assignmentRouter from './routes/assignment.route.ts';
 import { connectDB } from './config/db.ts';
 import { loadEnvFile } from 'node:process';
 import { existsSync } from 'node:fs';
@@ -36,5 +37,6 @@ app.use(async (_req, _res, next) => {
 app.use('/api/auth', authRouter);
 app.use('/api/teacher', teacherRouter);
 app.use('/api/student', studentRouter);
+app.use('/api/assignment', assignmentRouter);
 
 export default app;
