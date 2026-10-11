@@ -47,7 +47,7 @@ export default function Assignments(props: { assignments?: Assignment[] }) {
 
   return (
     <div className="overflow-hidden rounded-lg border">
-      <Table className="min-w-[560px] text-sm sm:min-w-0">
+      <Table className="min-w-[560px] table-fixed text-sm sm:min-w-0">
         <TableHeader>
           <TableRow>
             <TableHead className="px-2 py-2">Name</TableHead>
@@ -71,6 +71,7 @@ export default function Assignments(props: { assignments?: Assignment[] }) {
                   )}
                   field="name"
                   value={assignment.name}
+                  type="text"
                 />
               </TableCell>
               <TableCell className="px-2 py-2">

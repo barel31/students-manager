@@ -37,7 +37,7 @@ export default function CreateStudent() {
               <Input
                 id="student-grade"
                 name="grade"
-                type="text"
+                type="number"
                 placeholder="e.g. Grade 10"
                 autoComplete="off"
                 required
@@ -49,7 +49,7 @@ export default function CreateStudent() {
               <Input
                 id="student-phone"
                 name="phone"
-                type="text"
+                type="number"
                 placeholder="e.g. 050-123-4567"
                 autoComplete="off"
                 required

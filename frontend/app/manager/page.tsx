@@ -32,11 +32,11 @@ export default async function Manager() {
               className="space-y-3 rounded-xl border bg-white p-3 shadow-sm">
               {(
                 [
-                  ['Name', 'name', student.name],
-                  ['Grade', 'grade', student.grade],
-                  ['Phone', 'phone', student.phone],
+                  ['Name', 'name', student.name, 'text'],
+                  ['Grade', 'grade', student.grade, 'number'],
+                  ['Phone', 'phone', student.phone, 'number'],
                 ] as const
-              ).map(([label, field, value]) => (
+              ).map(([label, field, value, type]) => (
                 <div
                   key={field}
                   className="grid grid-cols-[4rem_minmax(0,1fr)] items-center gap-2">
@@ -49,6 +49,7 @@ export default async function Manager() {
                     )}
                     field={field}
                     value={value}
+                    type={type}
                   />
                 </div>
               ))}
@@ -63,7 +64,7 @@ export default async function Manager() {
         </div>
 
         <div className="hidden overflow-hidden rounded-xl border bg-white shadow-sm sm:block">
-          <Table className="w-full text-sm">
+          <Table className="w-full table-fixed text-sm">
             <TableHeader>
               <TableRow>
                 <TableHead className="px-2 py-2">Name</TableHead>
@@ -85,6 +86,7 @@ export default async function Manager() {
                       )}
                       field="name"
                       value={student.name}
+                      type="text"
                     />
                   </TableCell>
                   <TableCell className="px-2 py-2">
@@ -96,6 +98,7 @@ export default async function Manager() {
                       )}
                       field="grade"
                       value={student.grade}
+                      type="number"
                     />
                   </TableCell>
                   <TableCell className="px-2 py-2">
@@ -107,6 +110,7 @@ export default async function Manager() {
                       )}
                       field="phone"
                       value={student.phone}
+                      type="number"
                     />
                   </TableCell>
                   <TableCell className="px-2 py-2">

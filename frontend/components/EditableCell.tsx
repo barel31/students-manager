@@ -50,7 +50,7 @@ export default function EditableCell({
   return (
     <form
       action={formAction}
-      className="flex min-w-0 flex-wrap items-center gap-1">
+      className="flex w-full min-w-0 flex-wrap items-center gap-1">
       {type === 'checkbox' ? (
         <>
           <input type="hidden" name="value" value="false" />
@@ -69,7 +69,7 @@ export default function EditableCell({
         <Input
           autoFocus
           aria-label={`Edit ${field}`}
-          className="h-8 px-2 w-30"
+          className="h-8 w-30 max-w-full px-2"
           type={type}
           name="value"
           defaultValue={value}
@@ -77,7 +77,7 @@ export default function EditableCell({
           disabled={pending}
         />
       )}
-      <div>
+      <div className="flex max-w-full flex-wrap gap-1">
         <Button type="submit" size="sm" className="h-8 px-2" disabled={pending}>
           Save
         </Button>

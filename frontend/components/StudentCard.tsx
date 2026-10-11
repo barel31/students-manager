@@ -40,83 +40,74 @@ export default function StudentCard(props: { student: Student }) {
       </CardHeader>
 
       <CardContent className="space-y-4">
-        {assignmentForm ? (
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Add assignment</CardTitle>
-              <CardDescription>{student.name}</CardDescription>
-            </CardHeader>
+        <div className="space-y-4">
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => setAssignmentForm(!assignmentForm)}
+            className="w-full sm:w-auto">
+            {assignmentForm ? 'Close' : '+ Add assignment'}
+          </Button>
 
-            <CardContent>
-              <form action={formAction} className="space-y-4">
+          {assignmentForm && (
+            <div className="rounded-xl border bg-slate-50 p-4 sm:p-5">
+              <form action={formAction} className="grid gap-4 sm:grid-cols-3">
                 <input type="hidden" name="studentId" value={student._id} />
-                <div className="grid gap-4">
-                  <div className="grid gap-2">
-                    <Label htmlFor="name">Name</Label>
-                    <Input
-                      name="name"
-                      id="name"
-                      type="text"
-                      placeholder="Assignment name"
-                      required
-                    />
-                  </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="name">Name</Label>
+                  <Input
+                    name="name"
+                    id="name"
+                    type="text"
+                    placeholder="Assignment name"
+                    required
+                  />
+                </div>
 
-                  <div className="grid gap-2">
-                    <Label htmlFor="dueDay">Due date</Label>
-                    <Input
-                      name="dueDay"
-                      id="dueDay"
-                      type="date"
-                      placeholder="Select due date"
-                      required
-                    />
-                  </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="dueDay">Due date</Label>
+                  <Input
+                    name="dueDay"
+                    id="dueDay"
+                    type="date"
+                    placeholder="Select due date"
+                    required
+                  />
+                </div>
 
-                  <div className="grid gap-2">
-                    <Label htmlFor="score">Score</Label>
-                    <Input
-                      name="score"
-                      id="score"
-                      type="number"
-                      placeholder="Assignment score"
-                      required
-                    />
-                  </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="score">Score</Label>
+                  <Input
+                    name="score"
+                    id="score"
+                    type="number"
+                    placeholder="Assignment score"
+                    required
+                  />
+                </div>
 
-                  <FieldGroup className="w-max">
-                    <Field orientation="horizontal">
-                      <FieldLabel htmlFor="status" className="text-nowrap">
-                        Assignment finished?
-                      </FieldLabel>
-                      <Checkbox name="status" id="status" />
-                    </Field>
-                  </FieldGroup>
+                <FieldGroup className="w-max">
+                  <Field orientation="horizontal">
+                    <FieldLabel htmlFor="status" className="text-nowrap">
+                      Assignment finished?
+                    </FieldLabel>
+                    <Checkbox name="status" id="status" />
+                  </Field>
+                </FieldGroup>
 
-                  {state.message && (
-                    <p className="text-sm text-red-500">{state.message}</p>
-                  )}
+                {state.message && (
+                  <p className="text-sm text-red-500">{state.message}</p>
+                )}
 
-                  <div className="flex flex-wrap gap-2">
-                    <Button type="submit" disabled={pending}>
-                      Add assignment
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => setAssignmentForm(false)}>
-                      Close
-                    </Button>
-                  </div>
+                <div className="sm:col-span-3 flex justify-end">
+                  <Button type="submit" disabled={pending}>
+                    Add assignment
+                  </Button>
                 </div>
               </form>
-            </CardContent>
-          </Card>
-        ) : (
-          <Button type="button" onClick={() => setAssignmentForm(true)}>
-            Add assignment
-          </Button>
-        )}
+            </div>
+          )}
+        </div>
 
         <Assignments assignments={student?.assignments} />
       </CardContent>
