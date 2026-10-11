@@ -4,11 +4,16 @@ import { Teacher } from '../models/teacher.model.ts';
 export async function getTeacherStudents(req: Request, res: Response) {
   const teacherId = req.teacherId;
   try {
-    const teacher: Teacher = await Teacher.findById(teacherId).exec();
+    const teacher = await Teacher.findById(teacherId).exec();
 
-    res.json({ students: teacher.students });
+    if (!teacher) {
+      return res.status(404).json({ message: 'Teacher not found' });
+    }
+
+    return res.json({ students: teacher.students });
   } catch (error) {
-    res.status(400).json({ message: 'Error creating student', error });
+    console.error('Error fetching teacher students:', error);
+    return res.status(500).json({ message: 'Failed to fetch students' });
   }
 }
 

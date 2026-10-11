@@ -6,7 +6,6 @@ import { Teacher } from '../models/teacher.model.ts';
 export async function loginTeacher(req: Request, res: Response) {
   try {
     const { name, id } = req.body;
-    // const user = users.find(user => user.name === name && user.id === id);
     const teacher = await Teacher.findOne({ name, id }).exec();
     if (teacher) {
       const token = jwt.sign(

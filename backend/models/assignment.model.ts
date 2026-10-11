@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema } from 'mongoose';
 
 export const assignmentSchema = new Schema<Assignment>({
   name: { type: String, required: true },
@@ -7,4 +7,4 @@ export const assignmentSchema = new Schema<Assignment>({
   score: { type: Number, required: true },
 });
 
-export const Assignment = model('assignment', assignmentSchema);
+// export const Assignment = model('assignment', assignmentSchema);

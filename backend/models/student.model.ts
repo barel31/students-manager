@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema } from 'mongoose';
 import { assignmentSchema } from './assignment.model.ts';
 
 export const studentSchema = new Schema<Student>({
@@ -7,5 +7,3 @@ export const studentSchema = new Schema<Student>({
   phone: { type: String, required: true },
   assignments: { type: [assignmentSchema], default: [] },
 });
-
-export const Student = model<Student>('students', studentSchema);

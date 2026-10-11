@@ -1,8 +1,9 @@
-import { getToken } from '@/app/helpers/auth-sever';
-import { notFound, redirect } from 'next/navigation';
-import Card from '@/app/ui/Card';
-import DetailItem from '@/app/ui/DetailItem';
-import LinkButton from '@/app/ui/LinkButton';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { getToken } from '@/helpers/auth-sever';
+import { redirect } from 'next/navigation';
+import { fetchStudent } from '@/actions/student';
+import StudentCard from '@/components/StudentCard';
 
 export default async function StudentPage({
   params,
@@ -14,34 +15,18 @@ export default async function StudentPage({
 
   if (!token) redirect('/login');
 
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/student/${id}`,
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    },
-  );
-
-  if (response.status === 404) notFound();
-  if (!response.ok) throw new Error('Failed to fetch student');
-
-  const { student }: { student: Student } = await response.json();
+  const student = await fetchStudent(token, id);
 
   return (
-    <main className="flex-1 px-4 py-10 sm:px-6">
+    <main>
       <div className="mx-auto max-w-3xl">
         <div className="mb-6">
-          <LinkButton href="/manager">
-            <span aria-hidden="true">←</span>
-            Back to students
-          </LinkButton>
+          <Link href="/manager">
+            <Button>← Back to students</Button>
+          </Link>
         </div>
-        <Card>
-          <h1 className="text-3xl font-bold text-slate-50">{student.name}</h1>
-          <dl className="mt-6 grid gap-4 sm:grid-cols-2">
-            <DetailItem label="Grade" value={student.grade} />
-            <DetailItem label="Phone" value={student.phone} />
-          </dl>
-        </Card>
+
+        <StudentCard student={student} />
       </div>
     </main>
   );

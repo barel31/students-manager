@@ -1,8 +1,8 @@
 'use client';
-import { createStudent } from '@/app/actions/student';
-import Button from '@/app/ui/Button';
-import FormField from '@/app/ui/FormField';
+import { createStudent } from '@/actions/student';
+import FormField from '@/components/ui/FormField';
 import { useState } from 'react';
+import { Button } from './ui/button';
 
 export default function CreateStudent() {
   const [visible, setVisible] = useState(false);

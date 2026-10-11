@@ -33,7 +33,16 @@ app.use('/api/auth', authRouter);
 app.use('/api/teacher', teacherRouter);
 app.use('/api/student', studentRouter);
 
-app.listen(PORT, async () => {
-  await connectDB();
-  console.log(`Server is running on port ${PORT}`);
-});
+async function startServer() {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('Server startup failed:', error);
+    process.exitCode = 1;
+  }
+}
+
+startServer();
