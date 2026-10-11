@@ -1,12 +1,12 @@
 interface Teacher {
-  _id?: Types.ObjectId;
+  _id: Types.ObjectId;
   name: string;
   id: string;
   students: Student[];
 }
 
 interface Student {
-  _id?: Types.ObjectId;
+  _id: Types.ObjectId;
   name: string;
   grade: string;
   phone: string;
@@ -14,7 +14,7 @@ interface Student {
 }
 
 interface Assignment {
-  _id?: Types.ObjectId;
+  _id: Types.ObjectId;
   name: string;
   dueDay: Date;
   status: boolean;

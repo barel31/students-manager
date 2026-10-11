@@ -1,5 +1,5 @@
 import { useActionState } from 'react';
-import { deleteAssignment } from '@/actions/student';
+import { deleteAssignment, updateAssignment } from '@/actions/assignment';
 import { useParams } from 'next/navigation';
 
 import {
@@ -18,6 +18,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Button } from './ui/button';
+import EditableCell from './EditableCell';
 
 export default function Assignments(props: { assignments?: Assignment[] }) {
   const { assignments } = props;
@@ -58,15 +59,59 @@ export default function Assignments(props: { assignments?: Assignment[] }) {
         </TableHeader>
 
         <TableBody>
-          {assignments.map((assignment, index) => (
-            <TableRow key={index}>
-              <TableCell className="px-2 py-2">{assignment.name}</TableCell>
+          {assignments.map(assignment => (
+            <TableRow key={assignment._id.toString()}>
               <TableCell className="px-2 py-2">
-                {new Date(assignment.dueDay).toISOString().slice(0, 10)}
+                <EditableCell
+                  action={updateAssignment.bind(
+                    null,
+                    studentId,
+                    assignment._id.toString(),
+                    'name',
+                  )}
+                  field="name"
+                  value={assignment.name}
+                />
               </TableCell>
-              <TableCell className="px-2 py-2">{assignment.score}</TableCell>
               <TableCell className="px-2 py-2">
-                {assignment.status ? 'Finished' : 'Unfinished'}
+                <EditableCell
+                  action={updateAssignment.bind(
+                    null,
+                    studentId,
+                    assignment._id.toString(),
+                    'dueDay',
+                  )}
+                  field="dueDay"
+                  value={new Date(assignment.dueDay).toISOString().slice(0, 10)}
+                  type="date"
+                />
+              </TableCell>
+              <TableCell className="px-2 py-2">
+                <EditableCell
+                  action={updateAssignment.bind(
+                    null,
+                    studentId,
+                    assignment._id.toString(),
+                    'score',
+                  )}
+                  field="score"
+                  value={String(assignment.score)}
+                  type="number"
+                />
+              </TableCell>
+              <TableCell className="px-2 py-2">
+                <EditableCell
+                  action={updateAssignment.bind(
+                    null,
+                    studentId,
+                    assignment._id.toString(),
+                    'status',
+                  )}
+                  field="status"
+                  value={String(assignment.status)}
+                  type="checkbox"
+                  displayValue={assignment.status ? 'Finished' : 'Unfinished'}
+                />
               </TableCell>
               <TableCell className="px-2 py-2">
                 <form action={formAction}>

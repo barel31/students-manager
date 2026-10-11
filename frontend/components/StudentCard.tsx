@@ -14,7 +14,7 @@ import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { Checkbox } from './ui/checkbox';
 import { Field, FieldGroup, FieldLabel } from './ui/field';
-import { addAssignment } from '@/actions/student';
+import { addAssignment } from '@/actions/assignment';
 import Assignments from './Assignments';
 
 export default function StudentCard(props: { student: Student }) {
