@@ -64,7 +64,13 @@ export default function StudentCard(props: { student: Student }) {
 
                   <div className="grid gap-2">
                     <Label htmlFor="dueDay">Due date</Label>
-                    <Input name="dueDay" id="dueDay" type="date" required />
+                    <Input
+                      name="dueDay"
+                      id="dueDay"
+                      type="date"
+                      placeholder="Select due date"
+                      required
+                    />
                   </div>
 
                   <div className="grid gap-2">
