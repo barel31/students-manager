@@ -23,7 +23,6 @@ export default function EditableCell({
   displayValue?: string;
 }) {
   const [editing, setEditing] = useState(false);
-  const [inputValue, setInputValue] = useState(value);
   const [state, formAction, pending] = useActionState(
     async (
       previousState: { message: string; saved?: boolean },
@@ -36,20 +35,12 @@ export default function EditableCell({
     { message: '', saved: false },
   );
 
-  const cancelEditing = () => {
-    setInputValue(value);
-    setEditing(false);
-  };
-
   if (!editing) {
     return (
       <button
         type="button"
-        className="min-h-8 w-full min-w-0 break-words rounded-sm text-left hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        onClick={() => {
-          setInputValue(value);
-          setEditing(true);
-        }}
+        className="min-h-8 w-full min-w-0 rounded-sm hover:underline text-left"
+        onClick={() => setEditing(true)}
         aria-label={`Edit ${field}`}>
         {displayValue}
       </button>
@@ -70,10 +61,7 @@ export default function EditableCell({
             type="checkbox"
             name="value"
             value="true"
-            checked={inputValue === 'true'}
-            onChange={event =>
-              setInputValue(event.currentTarget.checked ? 'true' : 'false')
-            }
+            defaultChecked={value === 'true'}
             disabled={pending}
           />
         </>
@@ -82,26 +70,27 @@ export default function EditableCell({
           autoFocus
           aria-label={`Edit ${field}`}
           className="h-8 px-2 w-30"
-          type={type === 'date' || type === 'number' ? type : 'text'}
+          type={type}
           name="value"
-          value={inputValue}
-          onChange={event => setInputValue(event.currentTarget.value)}
+          defaultValue={value}
           required
           disabled={pending}
         />
       )}
-      <Button type="submit" size="sm" className="h-8 px-2" disabled={pending}>
-        Save
-      </Button>
-      <Button
-        type="button"
-        size="sm"
-        variant="outline"
-        className="h-8 px-2"
-        onClick={cancelEditing}
-        disabled={pending}>
-        Cancel
-      </Button>
+      <div>
+        <Button type="submit" size="sm" className="h-8 px-2" disabled={pending}>
+          Save
+        </Button>
+        <Button
+          type="button"
+          size="sm"
+          variant="outline"
+          className="h-8 px-2"
+          onClick={() => setEditing(false)}
+          disabled={pending}>
+          Cancel
+        </Button>
+      </div>
       {state.message && (
         <span role="alert" className="basis-full text-xs text-destructive">
           {state.message}
