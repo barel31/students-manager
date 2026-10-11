@@ -2,14 +2,15 @@ import LoginForm from '@/components/LoginForm';
 
 export default function Login() {
   return (
-    <main className="font-sans flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 sm:items-start">
-      <h1 className="text-3xl font-bold">Login</h1>
-      <div className="flex flex-col items-center text-center sm:items-start sm:text-left">
-        <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight">
-          Please enter your credentials to login.
-        </h1>
-      </div>
-      <div>
+    <main className="flex min-h-[calc(100vh-72px)] items-center justify-center px-4 py-10">
+      <div className="w-full max-w-md space-y-6">
+        <div className="space-y-2 text-center sm:text-left">
+          <h1 className="text-3xl font-bold tracking-tight">Login</h1>
+          <p className="text-sm text-slate-600">
+            Please enter your credentials to login.
+          </p>
+        </div>
+
         <LoginForm />
       </div>
     </main>

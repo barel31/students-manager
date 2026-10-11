@@ -8,20 +8,24 @@ export default async function Navbar() {
   const teacherName = teacher ? teacher.name : 'Guest';
 
   return (
-    <nav className="p-4 w-full h-full flex flex-col items-center justify-center">
-      <div className="container mx-full flex items-center justify-between">
-        <Link href="/" className="text-4xl font-bold">
+    <nav className="border-b bg-white/90">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+        <Link href="/" className="text-xl font-bold sm:text-2xl">
           Students Manager
         </Link>
-        <div className="flex justify-around w-1/5 align-middle">
-          <p className="m-auto">Welcome, {teacherName}</p>
+
+        <div className="flex items-center justify-between gap-3 sm:justify-end">
+          <p className="text-sm text-slate-600">Welcome, {teacherName}</p>
+
           {teacherName !== 'Guest' ? (
             <form action={logoutTeacher}>
-              <Button type="submit">LOGOUT</Button>
+              <Button type="submit" className="h-9 px-3 text-sm">
+                Logout
+              </Button>
             </form>
           ) : (
             <Link href="/login">
-              <Button>LOGIN</Button>
+              <Button className="h-9 px-3 text-sm">Login</Button>
             </Link>
           )}
         </div>

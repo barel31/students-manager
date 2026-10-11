@@ -18,13 +18,11 @@ export default async function StudentPage({
   const student = await fetchStudent(token, id);
 
   return (
-    <main>
-      <div className="mx-auto max-w-3xl">
-        <div className="mb-6">
-          <Link href="/manager">
-            <Button>← Back to students</Button>
-          </Link>
-        </div>
+    <main className="flex-1 px-4 py-6 sm:px-6">
+      <div className="mx-auto max-w-4xl space-y-4">
+        <Link href="/manager">
+          <Button className="h-9 m-4">← Back to students</Button>
+        </Link>
 
         <StudentCard student={student} />
       </div>

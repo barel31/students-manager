@@ -4,7 +4,6 @@ import {
   CardAction,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -26,29 +25,32 @@ export default function StudentCard(props: { student: Student }) {
 
   const { student } = props;
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{student.name}</CardTitle>
-        <CardDescription>
-          Grade: {student.grade} Phone: {student.phone}
-        </CardDescription>
+    <Card className="overflow-hidden">
+      <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <CardTitle className="text-xl">{student.name}</CardTitle>
+          <CardDescription className="mt-1 text-sm">
+            Grade: {student.grade} • Phone: {student.phone}
+          </CardDescription>
+        </div>
+
         <CardAction>
           <DeleteStudentForm student={student} />
         </CardAction>
       </CardHeader>
-      <CardContent>
+
+      <CardContent className="space-y-4">
         {assignmentForm ? (
           <Card>
             <CardHeader>
-              <CardTitle>
-                Add assignment to Student
-                <CardDescription>{student.name}</CardDescription>
-              </CardTitle>
+              <CardTitle className="text-lg">Add assignment</CardTitle>
+              <CardDescription>{student.name}</CardDescription>
             </CardHeader>
+
             <CardContent>
-              <form action={formAction}>
+              <form action={formAction} className="space-y-4">
                 <input type="hidden" name="studentId" value={student._id} />
-                <div className="flex flex-col gap-6">
+                <div className="grid gap-4">
                   <div className="grid gap-2">
                     <Label htmlFor="name">Name</Label>
                     <Input
@@ -58,8 +60,14 @@ export default function StudentCard(props: { student: Student }) {
                       placeholder="Assignment name"
                       required
                     />
+                  </div>
+
+                  <div className="grid gap-2">
                     <Label htmlFor="dueDay">Due date</Label>
                     <Input name="dueDay" id="dueDay" type="date" required />
+                  </div>
+
+                  <div className="grid gap-2">
                     <Label htmlFor="score">Score</Label>
                     <Input
                       name="score"
@@ -68,36 +76,42 @@ export default function StudentCard(props: { student: Student }) {
                       placeholder="Assignment score"
                       required
                     />
-                    <FieldGroup className="w-max">
-                      <Field orientation="horizontal">
-                        <FieldLabel htmlFor="status" className="text-nowrap">
-                          Assignment finished?
-                        </FieldLabel>
-                        <Checkbox name="status" id="status" />
-                      </Field>
-                    </FieldGroup>
-                    {state.message && (
-                      <p className="text-sm text-red-500">{state.message}</p>
-                    )}
+                  </div>
 
+                  <FieldGroup className="w-max">
+                    <Field orientation="horizontal">
+                      <FieldLabel htmlFor="status" className="text-nowrap">
+                        Assignment finished?
+                      </FieldLabel>
+                      <Checkbox name="status" id="status" />
+                    </Field>
+                  </FieldGroup>
+
+                  {state.message && (
+                    <p className="text-sm text-red-500">{state.message}</p>
+                  )}
+
+                  <div className="flex flex-wrap gap-2">
                     <Button type="submit" disabled={pending}>
                       Add assignment
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setAssignmentForm(false)}>
+                      Close
                     </Button>
                   </div>
                 </div>
               </form>
             </CardContent>
-            <CardFooter>
-              <Button type="button" onClick={() => setAssignmentForm(false)}>
-                Close
-              </Button>
-            </CardFooter>
           </Card>
         ) : (
           <Button type="button" onClick={() => setAssignmentForm(true)}>
             Add assignment
           </Button>
         )}
+
         <Assignments assignments={student?.assignments} />
       </CardContent>
     </Card>
