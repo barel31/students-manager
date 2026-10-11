@@ -5,10 +5,12 @@ import teacherRouter from './routes/teacher.route.ts';
 import studentRouter from './routes/student.route.ts';
 import { connectDB } from './config/db.ts';
 import { loadEnvFile } from 'node:process';
+import { existsSync } from 'node:fs';
 import cors from 'cors';
 
-// Loads environment variables from the default .env file
-loadEnvFile();
+if (existsSync('.env')) {
+  loadEnvFile();
+}
 
 const PORT = 3001;
 
