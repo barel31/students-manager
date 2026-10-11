@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch app.ts",
-    "start": "node app.ts"
+    "start": "node app.ts",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@types/express": "^5.0.6",
